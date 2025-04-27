@@ -19,7 +19,37 @@ void showMenu();
 void option1();
 void option2();
 void modify_account(int number_account_reference);
+void option_3();
 
+int main(){
+    int select_count;
+    while(true){ 
+        showMenu();
+        cin >> select_count;
+        cin.ignore();
+
+        switch (select_count)
+        {
+        case 1:
+            option1();
+            break;
+            
+        case 2:
+            option2();
+            break;
+        case 3:
+            option_3();
+            break;
+        case 4:
+            cout << "Exiting program. Goodbye!" << endl;
+            return 0;  // Exits only when user selects option 4
+        default:
+            cout << "still not";
+        }
+
+    }
+        
+}
 void open_and_read_Json(json& data){
    ifstream input_file("data.json");
 
@@ -161,34 +191,18 @@ void modify_account(int number_account_reference){
 
 }
 
-int main(){
-    int select_count;
-    while(true){ 
-        showMenu();
-        cin >> select_count;
-        cin.ignore();
-
-        switch (select_count)
-        {
-        case 1:
-            option1();
-            break;
-            
-        case 2:
-            option2();
-            break;
-        case 3:
-            cout << "Option 3 not implemented yet." << endl;
-            break;
-        case 4:
-            cout << "Exiting program. Goodbye!" << endl;
-            return 0;  // Exits only when user selects option 4
-        default:
-            cout << "still not";
-        }
-
+void option_3(){
+    json data;
+    open_and_read_Json(data);
+    cout << data.dump(4) << endl;
+    cout << "This is the accounts we have, do you want to anything else y/n?";
+    char choice;
+    cin >> choice;
+    if (choice == 'y' || choice == 'Y') {
+        return;  // Esto regresará al ciclo en main() y mostrará el menú nuevamente
+    } else {
+        cout << "Exiting program. Goodbye!" << endl;
+        return;  // Termina el programa si elige 'n'
     }
-        
+
 }
-
-
